@@ -1,0 +1,27 @@
+
+#include <iostream>
+
+int main(){
+    
+    //Aqui solicitaremos que ingrese su edad
+    int edad;
+    std:: cout<<"Ingresa tu edad: "<<std::endl;
+    std::cin>>edad;
+    
+    // Determinaremos a partir de los cuantos años ya se considera mayor de edad
+    
+    if(edad>= 18){
+        
+        // Se imprime en pantalla el mansaje dependiendo la edad
+        
+        
+        
+        std::cout<<"La persona es mayor de edad" <<std::endl;
+    }
+     else{
+         
+     std::cout<<"La persona es menor de edad"<<std::endl;
+     }
+     
+     return 0;
+     
