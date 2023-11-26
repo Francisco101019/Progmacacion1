@@ -1,0 +1,26 @@
+#include<iostream>
+
+int main()
+{
+float numero1, numero2;
+//pediremos al usuario ingresar dos numeros y los almacenamos para su uso posterior 
+std:: cout<<"ingresa el primer numero:"<<std::endl;
+std::cin>>numero1;
+std:: cout<<"ingresa el segundo numero:"<<std::endl;
+std::cin>>numero2;
+//se realizaran las operaciones basicas que se mostraran mas adelante al usuario
+ float suma=numero1+numero2;
+ float resta=numero1-numero2;
+ float multiplicacion=numero1*numero2;
+ float division=numero1/numero2;
+ //se imprimen en pantalla los resultados de las operaciones para que el usuario pueda verlas
+std:: cout<<"la suma de los dos numeros es:"<<suma<<std::endl;
+
+std:: cout<<"la resta de los dos numeros es:"<<resta<<std::endl;
+
+std:: cout<<"la multiplicacion de los dos numeros es:"<<multiplicacion<<std::endl;
+
+std:: cout<<"la division de los dos numeros es:"<<division<<std::endl;
+
+return 0;
+}
