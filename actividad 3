@@ -1,0 +1,113 @@
+#include <iostream>
+#include <string>
+
+class RFCGenerator {
+    public:
+    RFCGenerator(std::string nombre, std::string apellidoPaterno, std::string apellidoMaterno, int diaNacimiento, int mesNacimiento, int anoNacimiento):
+    nombre(nombre), apellidoPaterno(apellidoPaterno), apellidoMaterno(apellidoMaterno), diaNacimiento(diaNacimiento), mesNacimiento(mesNacimiento), anoNacimiento(anoNacimiento){}
+    
+    std::string generarRFC(){
+        std::string rfc;
+        
+        //se obtienen las primeras dos posiciones que se agregaran al RFC
+        
+        rfc+=obtenerPrimeraLetra(apellidoPaterno);
+        
+        rfc+=obtenerPrimeraVocal(apellidoPaterno);
+        
+        //Aqui obtenemos la tercer posicion para el RFC y si no cuenta con apellido solo coloca una X
+        
+        rfc+=(apellidoMaterno.empty()) ? "X" : std::string(1,obtenerPrimeraLetra(apellidoMaterno));
+        
+        //se obtiene la cuarta pocision y en caso de no contar con nombre se sustituye con X
+        
+        rfc+=(nombre.empty()) ? "X" : std::string(1,obtenerPrimeraLetra(nombre));
+        
+        // la quinta y sexta posicion corresponde al año de nacimiento
+        
+        rfc+=std::to_string(anoNacimiento %100);
+        
+        //la septima y octava posicion corresponden al mes de nacimiento
+        
+        rfc+=completarConCero(mesNacimiento);
+        
+        // la novena y decima posicion corresponde al dia de nacimiento
+        
+        rfc+=completarConCero(diaNacimiento);
+        
+        //al no contar con Homoclave al finas de los datos solo agregaremos XXX
+        
+        rfc+="XXX";
+        
+        return rfc;
+    }
+    private:
+    
+    
+    char obtenerPrimeraLetra(const std::string& palabra){
+        return palabra[0];
+    }
+    
+    char obtenerPrimeraVocal(const std::string& palabra){
+        for (char letra : palabra){
+            if(esVocal(letra)&& letra != palabra[0]){
+                return letra;
+            }
+        }
+        //si no encuentra vocal se mostrara una X
+        return 'x';
+    }
+    
+    bool esVocal(char letra){
+        return ( letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u' ||
+                 letra == 'A' || letra == 'E' || letra == 'I' || letra == 'O' || letra == 'U' );
+    }
+    
+    std::string completarConCero(int Valor){
+        //esta intruccion agraga un cero si en valor ingresado es menor a 10
+        
+        return (Valor < 10) ? "0" + std::to_string(Valor) : std::to_string(Valor);
+    }
+    
+    std::string nombre;
+    std::string apellidoPaterno;
+    std::string apellidoMaterno;
+    int diaNacimiento;
+    int mesNacimiento;
+    int anoNacimiento;
+    
+    
+    
+};
+
+int main() {
+    
+    //aqui solo procedemos a capturar los datos para generar el RFC
+    
+    std::string nombre, apellidoPaterno, apellidoMaterno;
+    int diaNacimiento, mesNacimiento, anoNacimiento;
+    
+    std::cout<<"ingrese Nombre:"<<std::endl;
+    std::getline(std::cin, nombre);
+    
+    std::cout<<"ingrese Apellido Paterno:"<<std::endl;
+    std::getline(std::cin, apellidoPaterno);
+    
+    std::cout<<"ingrese Apellido Materno:"<<std::endl;
+    std::getline(std::cin, apellidoMaterno);
+    
+    std::cout<<"ingrese dia de Nacimiento:"<<std::endl;
+    std::cin>> diaNacimiento;
+    std::cout<<"ingrese mes de Nacimiento:"<<std::endl;
+    std::cin>> mesNacimiento;
+    
+    std::cout<<"ingrese año de Nacimiento:"<<std::endl;
+    std::cin>> anoNacimiento;
+    
+    RFCGenerator empleado(nombre, apellidoPaterno, apellidoMaterno, diaNacimiento, mesNacimiento, anoNacimiento);
+    std::string rfc = empleado.generarRFC();
+    
+    std::cout<<"Su RFC es: "<< rfc <<std::endl;
+    return 0;
+}
+ 
